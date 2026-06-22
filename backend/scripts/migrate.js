@@ -157,34 +157,8 @@ async function runMigrations() {
       console.log('✓ Documents table ready');
     }
 
-    // 5. Create seed users (demo officers)
-    console.log('📝 Seeding demo officers...');
-    const DEMO_OFFICERS = [
-      { email: 'officer@mortgageflow.com', name: 'T. Moyo', role: 'Loan Officer', initials: 'TM' },
-      { email: 'manager@mortgageflow.com', name: 'S. Ncube', role: 'Branch Manager', initials: 'SN' },
-      { email: 'credit@mortgageflow.com', name: 'R. Dube', role: 'Credit Admin', initials: 'RD' }
-    ];
-
-    for (const officer of DEMO_OFFICERS) {
-      const { data, error } = await supabase.auth.admin.createUser({
-        email: officer.email,
-        password: officer.email === 'officer@mortgageflow.com' ? 'MF2026' 
-                : officer.email === 'manager@mortgageflow.com' ? 'MGR2026'
-                : 'CRD2026',
-        email_confirm: true,
-        user_metadata: {
-          name: officer.name,
-          role: officer.role,
-          initials: officer.initials
-        }
-      });
-
-      if (error) {
-        console.log(`⚠ Officer ${officer.email} may already exist:`, error.message);
-      } else {
-        console.log(`✓ Created officer: ${officer.email}`);
-      }
-    }
+    // 5. Database is ready - no demo data seeded
+    console.log('✓ Database schema created - ready for real data');
 
     console.log('\n✅ Database migrations completed successfully!');
     console.log('\n📋 Next steps:');
